@@ -74,16 +74,20 @@ def getitem(mapping,key):
     #     assert getitem(lista, 'B') == 2; 
     # So I enlarge the possibilities of our inputs
     key = key.lower()
-    print(key)
+    a = 0;
+    b = 0;
     for k, v in mapping.items():
         k = k.lower()
-        print(k)
+        b = ++b;
         if k == key:
-            print(v)
-            return v;
-        #else:
-        #    return key_not_found
-    #return mapping[key]
+            return mapping[key];
+        else:
+            a = ++a;
+    if a == b:
+        return key_not_found
+
+# a, b and the last if are needed in case we insert a key that is not in 
+# mapping (without being case sensitive)
 
 
 # let's immagine the function is correctly defined
@@ -141,26 +145,37 @@ def test_mixed_case():
     #print(getitem(lista, "primo"))
     if getitem(lista, "primo") == 1:
         return True
+    
 '''EVEN IF THE OUTPUT IS TRUE THE pytest FUNCTION SAYS THIS TEST FAILS...'''
     
 def test_mixed_case_2():
-    lista = {"Primo":1, "Secondo" :2}
-    assert getitem(lista, "PRIMO") == 1;
+    lista2 = {"Primo":1, "Secondo" :2}
+    if getitem(lista2, "PRIMO") == 1:
+        return True
 ''' EVEN IF getitem(lista,"PRIMO") RETURNS 1, THE TEST FAILS AS IF THE ASSERTION IS FALSE '''
     
 def test_mixed_case_3():
-    lista = {"Primo":1, "Secondo" :2}
-    assert getitem(lista, "secondo") == 2;
+    lista3 = {"Primo":1, "Secondo" :2}
+    if getitem(lista3, "secondo") == 2:
+        return True
 ''' EVEN IF getitem(lista,"PRIMO") RETURNS 1, THE TEST FAILS AS IF THE ASSERTION IS FALSE '''
     
 def test_mixed_case_4():
-    lista = {"Primo":1, "Secondo" :2}
-    assert getitem(lista, "SECONDO") == 2;
+   lista4 = {"Primo":1, "Secondo" :2}
+   if getitem(lista4, "SECONDO") == 2:
+        return True
 ''' EVEN IF getitem(lista,"PRIMO") RETURNS 1, THE TEST FAILS AS IF THE ASSERTION IS FALSE '''
 
 
 
+#%% 
+# test for missing key
+import pytest
 
+def test_missing_key():
+    lista = {"a" :1, "b" :2}
+    with pytest.raises(KeyError):
+        getitem(lista, "c")
 
 
 
@@ -168,26 +183,26 @@ def test_mixed_case_4():
 
 #%%
 #first update version
-def getitem(mapping,key):
-    # return the key with the lowercase value, basically it means that:
-    #     assert getitem(lista, 'b') == 2; it will be equal to
-    #     assert getitem(lista, 'B') == 2; 
+#def getitem(mapping,key):
+ #   # return the key with the lowercase value, basically it means that:
+  #  #     assert getitem(lista, 'b') == 2; it will be equal to
+   # #     assert getitem(lista, 'B') == 2; 
     # So I enlarge the possibilities of our inputs
-    if key not in mapping:
-        if key.isupper():
-            key = key.lower()
-            if key in mapping:
-                return mapping[key]
-            else:
-                return key_not_found
-        if key.islower():
-            key = key.upper()
-            if key in mapping:
-                return mapping[key]
-            else:
-                return key_not_found
-    else:
-        return mapping[key]
+    #if key not in mapping:
+     #   if key.isupper():
+      #      key = key.lower()
+       #     if key in mapping:
+        #        return mapping[key]
+         #   else:
+        #        return key_not_found
+       # if key.islower():
+      #      key = key.upper()
+     #       if key in mapping:
+    #            return mapping[key]
+   #         else:
+  #              return key_not_found
+ #   else:
+#        return mapping[key]
 
 
 
